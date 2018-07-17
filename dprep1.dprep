@@ -1,0 +1,324 @@
+{
+  "schemaVersion": 40,
+  "id": "856567da-75af-4e03-8de6-ed7f8c312d81",
+  "activities": [
+    {
+      "id": "0c2ce4fc-f597-48ba-abbb-2191809c6699",
+      "name": "train_labels",
+      "blocks": [
+        {
+          "id": "42620bec-ab6d-4766-a064-b7434eb4b97a",
+          "type": "Microsoft.DPrep.ReferenceActivityBlock",
+          "arguments": {
+            "reference": {
+              "referenceType": 1,
+              "referenceContainerPath": "./train_labels.dsource",
+              "referencedActivityId": "59f90761-1d10-4f2a-82ba-7738c9eabf1c",
+              "referencedBranchId": null,
+              "referencedStep": null,
+              "anonymousSteps": null
+            }
+          }
+        }
+      ],
+      "inspectors": [
+        {
+          "id": "3dd50851-fff4-477a-94e4-c760e2804ab4",
+          "type": "Microsoft.DPrep.DataQualityInspector",
+          "arguments": {},
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "0c2ce4fc-f597-48ba-abbb-2191809c6699",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": false
+        }
+      ]
+    },
+    {
+      "id": "55155b71-52da-4b38-8661-68a51cf4af8e",
+      "name": "train_values",
+      "blocks": [
+        {
+          "id": "37267ad2-d1a4-4e1d-a133-0957a9f12e91",
+          "type": "Microsoft.DPrep.ReferenceActivityBlock",
+          "arguments": {
+            "reference": {
+              "referenceType": 1,
+              "referenceContainerPath": "./train_values.dsource",
+              "referencedActivityId": "cecbc870-d12a-4f2f-9027-c1b5ea639713",
+              "referencedBranchId": null,
+              "referencedStep": null,
+              "anonymousSteps": null
+            }
+          }
+        }
+      ],
+      "inspectors": [
+        {
+          "id": "c8fece0b-da45-4cb1-bc57-969f78ba84d0",
+          "type": "Microsoft.DPrep.DataQualityInspector",
+          "arguments": {},
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "55155b71-52da-4b38-8661-68a51cf4af8e",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": false
+        }
+      ]
+    },
+    {
+      "id": "4c1d3fb6-6b34-420e-aede-ab59c14fb37a",
+      "name": "Join Result",
+      "blocks": [
+        {
+          "id": "34ead49e-12e4-4d0f-9740-51edfb0cd2ad",
+          "type": "TwoWayJoin",
+          "arguments": {
+            "leftActivityReference": {
+              "referenceType": 0,
+              "referenceContainerPath": null,
+              "referencedActivityId": "55155b71-52da-4b38-8661-68a51cf4af8e",
+              "referencedBranchId": null,
+              "referencedStep": null,
+              "anonymousSteps": null
+            },
+            "rightActivityReference": {
+              "referenceType": 0,
+              "referenceContainerPath": null,
+              "referencedActivityId": "0c2ce4fc-f597-48ba-abbb-2191809c6699",
+              "referencedBranchId": null,
+              "referencedStep": null,
+              "anonymousSteps": null
+            },
+            "rightColumnPrefix": "r_",
+            "leftKeyColumn": "row_id",
+            "rightKeyColumn": "row_id",
+            "joinType": 2
+          }
+        },
+        {
+          "id": "727c3dd7-be21-46cd-b028-5ad99a1accde",
+          "type": "Microsoft.DPrep.DeleteColumnBlock",
+          "arguments": {
+            "columnIds": [
+              "r_row_id"
+            ]
+          }
+        },
+        {
+          "id": "96f0a8de-6af6-4e89-9107-a25afc436c2e",
+          "type": "Microsoft.DPrep.ColumnRenameBlock",
+          "arguments": {
+            "newColumnId": "heart_disease_mortality_per_100k",
+            "columnId": "r_heart_disease_mortality_per_100k"
+          }
+        },
+        {
+          "id": "46386cca-ade9-4731-af20-6f03b3b44143",
+          "type": "Microsoft.DPrep.DeriveColumnByExample",
+          "arguments": {
+            "columnId": "area_is_metro",
+            "dsl": "PABOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQAgAHMAeQBtAGIAbwBsAD0AIgBzAHcAaQB0AGMAaAAiACAAcgB1AGwAZQA9ACIAfgBjAG8AbgB2AGUAcgB0AF8AcwB3AGkAdABjAGgAXwBpAHQAZQAiAD4APABOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQAgAHMAeQBtAGIAbwBsAD0AIgBpAHQAZQAiACAAcgB1AGwAZQA9ACIASQBmAFQAaABlAG4ARQBsAHMAZQAiAD4APABMAGUAdABOAG8AZABlACAAcwB5AG0AYgBvAGwAPQAiAGIAIgAgAGkAZAA9ACIATABlAHQAUAByAGUAZABpAGMAYQB0AGUAIgA+ADwAVgBhAHIAaQBhAGIAbABlACAAcwB5AG0AYgBvAGwAPQAiAGMAcwAiAD4APABOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQAgAHMAeQBtAGIAbwBsAD0AIgB5ACIAIAByAHUAbABlAD0AIgBTAGUAbABlAGMAdABJAG4AcAB1AHQAIgA+ADwAVgBhAHIAaQBhAGIAbABlAE4AbwBkAGUAIABzAHkAbQBiAG8AbAA9ACIAdgBzACIAIAAvAD4APABMAGkAdABlAHIAYQBsAE4AbwBkAGUAIABzAHkAbQBiAG8AbAA9ACIAbgBhAG0AZQAiAD4APAAhAFsAQwBEAEEAVABBAFsAIgBhAHIAZQBhAF8AXwByAHUAYwBjACIAXQBdAD4APAAvAEwAaQB0AGUAcgBhAGwATgBvAGQAZQA+ADwALwBOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQA+ADwALwBWAGEAcgBpAGEAYgBsAGUAPgA8AE4AbwBuAHQAZQByAG0AaQBuAGEAbABOAG8AZABlACAAcwB5AG0AYgBvAGwAPQAiAHAAcgBlAGQAIgAgAHIAdQBsAGUAPQAiAFAAcgBlAGQAaQBjAGEAdABlACIAPgA8AE4AbwBuAHQAZQByAG0AaQBuAGEAbABOAG8AZABlACAAcwB5AG0AYgBvAGwAPQAiAGMAbwBuAGoAdQBuAGMAdAAiACAAcgB1AGwAZQA9ACIAQwBvAG4AagB1AG4AYwB0ACIAPgA8AE4AbwBuAHQAZQByAG0AaQBuAGEAbABOAG8AZABlACAAcwB5AG0AYgBvAGwAPQAiAGIAYQBzAGUAQwBvAG4AagB1AG4AYwB0ACIAIAByAHUAbABlAD0AIgB+AGMAbwBuAHYAZQByAHQAXwBiAGEAcwBlAEMAbwBuAGoAdQBuAGMAdABfAHAAcgBlAGQAIgA+ADwATgBvAG4AdABlAHIAbQBpAG4AYQBsAE4AbwBkAGUAIABzAHkAbQBiAG8AbAA9ACIAcAByAGUAZAAiACAAcgB1AGwAZQA9ACIAfgBjAG8AbgB2AGUAcgB0AF8AcAByAGUAZABfAG0AYQB0AGMAaAAiAD4APABOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQAgAHMAeQBtAGIAbwBsAD0AIgBtAGEAdABjAGgAIgAgAHIAdQBsAGUAPQAiAEUAbgBkAHMAVwBpAHQAaAAiAD4APABWAGEAcgBpAGEAYgBsAGUATgBvAGQAZQAgAHMAeQBtAGIAbwBsAD0AIgBjAHMAIgAgAC8APgA8AEwAaQB0AGUAcgBhAGwATgBvAGQAZQAgAHMAeQBtAGIAbwBsAD0AIgByACIAPgA8AFIAZQBnAHUAbABhAHIARQB4AHAAcgBlAHMAcwBpAG8AbgA+ADwAVABvAGsAZQBuACAAbgBhAG0AZQA9ACIAJgBxAHUAbwB0ADsAIABtAGUAdAByAG8AIAAmAHEAdQBvAHQAOwAiACAAcwBjAG8AcgBlAD0AIgA5ADMAIgAgAGkAcwBTAHkAbQBiAG8AbAA9ACIAdAByAHUAZQAiAD4APAAhAFsAQwBEAEEAVABBAFsAXAAgAG0AZQB0AHIAbwBcACAAXQBdAD4APAAvAFQAbwBrAGUAbgA+ADwAVABvAGsAZQBuACAAbgBhAG0AZQA9ACIATABpAHMAdAAgAG8AZgAgAFUAcABwAGUAcgAgAGEAbgBkACAATABvAHcAZQByACAAQwBhAHMAZQAiACAAcwBjAG8AcgBlAD0AIgA1ACIAIABpAHMAUwB5AG0AYgBvAGwAPQAiAGYAYQBsAHMAZQAiAD4APAAhAFsAQwBEAEEAVABBAFsAKABcAHAAewBMAGwAfQB8AFwAcAB7AEwAdQB9ACkAKABcAHAAewBMAGwAfQB8AFwAcAB7AEwAdQB9ACkAKwBdAF0APgA8AC8AVABvAGsAZQBuAD4APAAvAFIAZQBnAHUAbABhAHIARQB4AHAAcgBlAHMAcwBpAG8AbgA+ADwALwBMAGkAdABlAHIAYQBsAE4AbwBkAGUAPgA8AC8ATgBvAG4AdABlAHIAbQBpAG4AYQBsAE4AbwBkAGUAPgA8AC8ATgBvAG4AdABlAHIAbQBpAG4AYQBsAE4AbwBkAGUAPgA8AC8ATgBvAG4AdABlAHIAbQBpAG4AYQBsAE4AbwBkAGUAPgA8AC8ATgBvAG4AdABlAHIAbQBpAG4AYQBsAE4AbwBkAGUAPgA8AC8ATgBvAG4AdABlAHIAbQBpAG4AYQBsAE4AbwBkAGUAPgA8AC8ATABlAHQATgBvAGQAZQA+ADwATgBvAG4AdABlAHIAbQBpAG4AYQBsAE4AbwBkAGUAIABzAHkAbQBiAG8AbAA9ACIAcwB0ACIAIAByAHUAbABlAD0AIgBUAHIAYQBuAHMAZgBvAHIAbQBhAHQAaQBvAG4AIgA+ADwATgBvAG4AdABlAHIAbQBpAG4AYQBsAE4AbwBkAGUAIABzAHkAbQBiAG8AbAA9ACIAZQAiACAAcgB1AGwAZQA9ACIAQQB0AG8AbQAiAD4APABOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQAgAHMAeQBtAGIAbwBsAD0AIgBmACIAIAByAHUAbABlAD0AIgBDAG8AbgBzAHQAUwB0AHIAIgA+ADwATABpAHQAZQByAGEAbABOAG8AZABlACAAcwB5AG0AYgBvAGwAPQAiAHMAIgA+ADwAIQBbAEMARABBAFQAQQBbACIAMAAiAF0AXQA+ADwALwBMAGkAdABlAHIAYQBsAE4AbwBkAGUAPgA8AC8ATgBvAG4AdABlAHIAbQBpAG4AYQBsAE4AbwBkAGUAPgA8AC8ATgBvAG4AdABlAHIAbQBpAG4AYQBsAE4AbwBkAGUAPgA8AC8ATgBvAG4AdABlAHIAbQBpAG4AYQBsAE4AbwBkAGUAPgA8AE4AbwBuAHQAZQByAG0AaQBuAGEAbABOAG8AZABlACAAcwB5AG0AYgBvAGwAPQAiAHMAdwBpAHQAYwBoACIAIAByAHUAbABlAD0AIgBTAGkAbgBnAGwAZQBCAHIAYQBuAGMAaAAiAD4APABOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQAgAHMAeQBtAGIAbwBsAD0AIgBzAHQAIgAgAHIAdQBsAGUAPQAiAFQAcgBhAG4AcwBmAG8AcgBtAGEAdABpAG8AbgAiAD4APABOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQAgAHMAeQBtAGIAbwBsAD0AIgBlACIAIAByAHUAbABlAD0AIgBBAHQAbwBtACIAPgA8AE4AbwBuAHQAZQByAG0AaQBuAGEAbABOAG8AZABlACAAcwB5AG0AYgBvAGwAPQAiAGYAIgAgAHIAdQBsAGUAPQAiAEMAbwBuAHMAdABTAHQAcgAiAD4APABMAGkAdABlAHIAYQBsAE4AbwBkAGUAIABzAHkAbQBiAG8AbAA9ACIAcwAiAD4APAAhAFsAQwBEAEEAVABBAFsAIgAxACIAXQBdAD4APAAvAEwAaQB0AGUAcgBhAGwATgBvAGQAZQA+ADwALwBOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQA+ADwALwBOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQA+ADwALwBOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQA+ADwALwBOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQA+ADwALwBOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQA+ADwALwBOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQA+AA==",
+            "examples": "{\"0\":{\"row\":0,\"sourceData\":{\"area__rucc\":\"Metro - Counties in metro areas of fewer than 250,000 population\"},\"example\":\"1\"},\"2\":{\"row\":2,\"sourceData\":{\"area__rucc\":\"Metro - Counties in metro areas of 1 million population or more\"},\"example\":\"1\"},\"3\":{\"row\":3,\"sourceData\":{\"area__rucc\":\"Nonmetro - Urban population of 2,500 to 19,999, adjacent to a metro area\"},\"example\":\"0\"},\"5\":{\"row\":5,\"sourceData\":{\"area__rucc\":\"Nonmetro - Urban population of 20,000 or more, adjacent to a metro area\"},\"example\":\"0\"},\"7\":{\"row\":7,\"sourceData\":{\"area__rucc\":\"Metro - Counties in metro areas of 250,000 to 1 million population\"},\"example\":\"1\"}}",
+            "priorColumnIds": [
+              "area__rucc"
+            ],
+            "sourceColumnIds": [
+              "area__rucc"
+            ],
+            "outputType": 2,
+            "anchorColumnId": "area__rucc"
+          }
+        },
+        {
+          "id": "cac9fd79-406e-4b59-a44e-324919a45748",
+          "type": "Microsoft.DPrep.ConvertColumnFieldTypeToBoolBlock",
+          "arguments": {
+            "columnIds": [
+              "area_is_metro"
+            ],
+            "trueValues": [
+              "True",
+              "true",
+              "T",
+              "Yes",
+              "yes",
+              "Y",
+              "1"
+            ],
+            "falseValues": [
+              "False",
+              "false",
+              "F",
+              "No",
+              "no",
+              "N",
+              "0"
+            ],
+            "mismatchAs": 1
+          }
+        },
+        {
+          "id": "6fdda6c9-ba16-4882-b2ae-4e6e288afe6c",
+          "type": "Microsoft.DPrep.DeriveColumnByExample",
+          "arguments": {
+            "columnId": "is_yr_a",
+            "dsl": "PABOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQAgAHMAeQBtAGIAbwBsAD0AIgBzAHcAaQB0AGMAaAAiACAAcgB1AGwAZQA9ACIAUwBpAG4AZwBsAGUAQgByAGEAbgBjAGgAIgA+ADwATgBvAG4AdABlAHIAbQBpAG4AYQBsAE4AbwBkAGUAIABzAHkAbQBiAG8AbAA9ACIAcwB0ACIAIAByAHUAbABlAD0AIgBUAHIAYQBuAHMAZgBvAHIAbQBhAHQAaQBvAG4AIgA+ADwATgBvAG4AdABlAHIAbQBpAG4AYQBsAE4AbwBkAGUAIABzAHkAbQBiAG8AbAA9ACIAZQAiACAAcgB1AGwAZQA9ACIAQQB0AG8AbQAiAD4APABMAGUAdABOAG8AZABlACAAcwB5AG0AYgBvAGwAPQAiAGYAIgAgAGkAZAA9ACIATABlAHQAQwBvAGwAdQBtAG4ATgBhAG0AZQAiAD4APABWAGEAcgBpAGEAYgBsAGUAIABzAHkAbQBiAG8AbAA9ACIAYwBvAGwAdQBtAG4ATgBhAG0AZQAiAD4APABMAGkAdABlAHIAYQBsAE4AbwBkAGUAIABzAHkAbQBiAG8AbAA9ACIAaQBkAHgAIgA+ADwAIQBbAEMARABBAFQAQQBbACIAeQByACIAXQBdAD4APAAvAEwAaQB0AGUAcgBhAGwATgBvAGQAZQA+ADwALwBWAGEAcgBpAGEAYgBsAGUAPgA8AEwAZQB0AE4AbwBkAGUAIABzAHkAbQBiAG8AbAA9ACIAbABlAHQATwBwAHQAaQBvAG4AcwAiACAAaQBkAD0AIgBMAGUAdABYACIAPgA8AFYAYQByAGkAYQBiAGwAZQAgAHMAeQBtAGIAbwBsAD0AIgB4ACIAPgA8AE4AbwBuAHQAZQByAG0AaQBuAGEAbABOAG8AZABlACAAcwB5AG0AYgBvAGwAPQAiAHYAIgAgAHIAdQBsAGUAPQAiAEMAaABvAG8AcwBlAEkAbgBwAHUAdAAiAD4APABWAGEAcgBpAGEAYgBsAGUATgBvAGQAZQAgAHMAeQBtAGIAbwBsAD0AIgB2AHMAIgAgAC8APgA8AFYAYQByAGkAYQBiAGwAZQBOAG8AZABlACAAcwB5AG0AYgBvAGwAPQAiAGMAbwBsAHUAbQBuAE4AYQBtAGUAIgAgAC8APgA8AC8ATgBvAG4AdABlAHIAbQBpAG4AYQBsAE4AbwBkAGUAPgA8AC8AVgBhAHIAaQBhAGIAbABlAD4APABOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQAgAHMAeQBtAGIAbwBsAD0AIgBjAG8AbgB2ACIAIAByAHUAbABlAD0AIgBMAG8AbwBrAHUAcAAiAD4APABWAGEAcgBpAGEAYgBsAGUATgBvAGQAZQAgAHMAeQBtAGIAbwBsAD0AIgB4ACIAIAAvAD4APABMAGkAdABlAHIAYQBsAE4AbwBkAGUAIABzAHkAbQBiAG8AbAA9ACIAbABvAG8AawB1AHAARABpAGMAdABpAG8AbgBhAHIAeQAiAD4APABEAGkAYwB0AGkAbwBuAGEAcgB5ACAAcwBpAHoAZQA9ACIAMgAiAD4APABJAHQAZQBtACAAaQA9ACIAMAAiAD4APABLAGUAeQBWAGEAbAB1AGUAUABhAGkAcgA+ADwASwBlAHkAPgA8AFMAbwBtAGUAPgA8ACEAWwBDAEQAQQBUAEEAWwAiAGEAIgBdAF0APgA8AC8AUwBvAG0AZQA+ADwALwBLAGUAeQA+ADwAVgBhAGwAdQBlAD4APAAhAFsAQwBEAEEAVABBAFsAIgAxACIAXQBdAD4APAAvAFYAYQBsAHUAZQA+ADwALwBLAGUAeQBWAGEAbAB1AGUAUABhAGkAcgA+ADwALwBJAHQAZQBtAD4APABJAHQAZQBtACAAaQA9ACIAMQAiAD4APABLAGUAeQBWAGEAbAB1AGUAUABhAGkAcgA+ADwASwBlAHkAPgA8AFMAbwBtAGUAPgA8ACEAWwBDAEQAQQBUAEEAWwAiAGIAIgBdAF0APgA8AC8AUwBvAG0AZQA+ADwALwBLAGUAeQA+ADwAVgBhAGwAdQBlAD4APAAhAFsAQwBEAEEAVABBAFsAIgAwACIAXQBdAD4APAAvAFYAYQBsAHUAZQA+ADwALwBLAGUAeQBWAGEAbAB1AGUAUABhAGkAcgA+ADwALwBJAHQAZQBtAD4APAAvAEQAaQBjAHQAaQBvAG4AYQByAHkAPgA8AC8ATABpAHQAZQByAGEAbABOAG8AZABlAD4APAAvAE4AbwBuAHQAZQByAG0AaQBuAGEAbABOAG8AZABlAD4APAAvAEwAZQB0AE4AbwBkAGUAPgA8AC8ATABlAHQATgBvAGQAZQA+ADwALwBOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQA+ADwALwBOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQA+ADwALwBOAG8AbgB0AGUAcgBtAGkAbgBhAGwATgBvAGQAZQA+AA==",
+            "examples": "{\"0\":{\"row\":0,\"sourceData\":{\"yr\":\"a\"},\"example\":\"1\"},\"2\":{\"row\":2,\"sourceData\":{\"yr\":\"b\"},\"example\":\"0\"}}",
+            "priorColumnIds": [
+              "yr"
+            ],
+            "sourceColumnIds": [
+              "yr"
+            ],
+            "outputType": 2,
+            "anchorColumnId": "yr"
+          }
+        },
+        {
+          "id": "65dc8d9a-ece8-49fe-8163-a898a0b6f209",
+          "type": "Microsoft.DPrep.ConvertColumnFieldTypeToBoolBlock",
+          "arguments": {
+            "columnIds": [
+              "is_yr_a"
+            ],
+            "trueValues": [
+              "True",
+              "true",
+              "T",
+              "Yes",
+              "yes",
+              "Y",
+              "1"
+            ],
+            "falseValues": [
+              "False",
+              "false",
+              "F",
+              "No",
+              "no",
+              "N",
+              "0"
+            ],
+            "mismatchAs": 1
+          }
+        },
+        {
+          "id": "f442b2cf-2f92-43c7-96ee-24227a917e4b",
+          "type": "Microsoft.DPrep.DeleteColumnBlock",
+          "arguments": {
+            "columnIds": [
+              "row_id",
+              "area__rucc",
+              "area__urban_influence",
+              "econ__economic_typology",
+              "yr"
+            ]
+          }
+        }
+      ],
+      "inspectors": [
+        {
+          "id": "3e1e75f8-61b1-4445-a0b3-1700ef332295",
+          "type": "Microsoft.DPrep.DataQualityInspector",
+          "arguments": {},
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "4c1d3fb6-6b34-420e-aede-ab59c14fb37a",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": false
+        },
+        {
+          "id": "f8565ed7-7926-4d29-b837-c7221fa98b0d",
+          "type": "Microsoft.DPrep.ValueCountInspector",
+          "arguments": {
+            "columnId": "area__rucc",
+            "numberOfTopValues": 20,
+            "descending": true,
+            "includeNulls": true,
+            "haloEffect": true,
+            "logScale": false
+          },
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "4c1d3fb6-6b34-420e-aede-ab59c14fb37a",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": true
+        }
+      ]
+    },
+    {
+      "id": "45489115-2e3e-4b48-8a3b-67b1189a6c03",
+      "name": "test_values",
+      "blocks": [
+        {
+          "id": "5ec45702-0a3e-44d1-8a5d-8dac4c574b2a",
+          "type": "Microsoft.DPrep.ReferenceActivityBlock",
+          "arguments": {
+            "reference": {
+              "referenceType": 1,
+              "referenceContainerPath": "./test_values.dsource",
+              "referencedActivityId": "58f1b99f-b044-4ef0-8ffc-f014ff448eb2",
+              "referencedBranchId": null,
+              "referencedStep": null,
+              "anonymousSteps": null
+            }
+          }
+        }
+      ],
+      "inspectors": [
+        {
+          "id": "36c4ad51-aadb-4457-9b89-00ddcc1c420b",
+          "type": "Microsoft.DPrep.DataQualityInspector",
+          "arguments": {},
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "45489115-2e3e-4b48-8a3b-67b1189a6c03",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": false
+        }
+      ]
+    }
+  ],
+  "runConfigurations": []
+}

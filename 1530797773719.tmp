@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 40,
+  "id": "221750fb-7d54-4f8e-9a19-2804da41d30f",
+  "activities": [
+    {
+      "id": "58f1b99f-b044-4ef0-8ffc-f014ff448eb2",
+      "name": "test_values",
+      "blocks": [
+        {
+          "id": "392e96c0-6377-40fe-92b1-386d94114062",
+          "type": "Microsoft.DPrep.DataSourceBlock",
+          "arguments": {
+            "path": {
+              "target": 0,
+              "resourceDetails": [
+                {
+                  "path": "C:\\Users\\sorinpe\\Source\\MLcompetitions\\HeartDisease\\test_values.csv"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "1ad378a6-fc94-41be-a2dc-fd82348acb9a",
+          "type": "Microsoft.DPrep.ParseDelimitedBlock",
+          "arguments": {
+            "preview": false,
+            "columnHeadersMode": 1,
+            "separator": ",",
+            "fileEncoding": 0,
+            "skipRowsMode": 0,
+            "handleQuotedLineBreaks": false
+          }
+        },
+        {
+          "id": "b0b9ca45-91f8-47b4-ab2c-9637155b8936",
+          "type": "Microsoft.DPrep.SetColumnTypesBlock",
+          "arguments": {
+            "columnConversion": [
+              {
+                "columnId": "row_id",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "econ__pct_civilian_labor",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "econ__pct_unemployment",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "econ__pct_uninsured_adults",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "demo__pct_aged_65_years_and_older",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "demo__pct_hispanic",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "demo__pct_non_hispanic_african_american",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "demo__pct_non_hispanic_white",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "demo__pct_american_indian_or_alaskan_native",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "demo__pct_asian",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "demo__pct_adults_less_than_a_high_school_diploma",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "demo__pct_adults_with_high_school_diploma",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "demo__pct_adults_with_some_college",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "demo__pct_adults_bachelors_or_higher",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "demo__birth_rate_per_1k",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "demo__death_rate_per_1k",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "health__pct_adult_obesity",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "health__pct_adult_smoking",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "health__pct_diabetes",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "health__pct_low_birthweight",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "health__pct_excessive_drinking",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "health__homicides_per_100k",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "health__motor_vehicle_crash_deaths_per_100k",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "health__pop_per_primary_care_physician",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "econ__pct_uninsured_children",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "demo__pct_female",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "demo__pct_below_18_years_of_age",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "health__pct_physical_inacticity",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "health__air_pollution_particulate_matter",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "health__pop_per_dentist",
+                "typeProperty": 3,
+                "typeArguments": {}
+              }
+            ]
+          }
+        },
+        {
+          "id": "e0c0eb5b-5286-4a5a-838b-be99a2a2da39",
+          "type": "Microsoft.DPrep.SampleBlock",
+          "arguments": {
+            "samples": [
+              {
+                "sampleId": "ebd0735b-8051-4f8a-acfc-b721f652360d",
+                "sampleRevision": "9d8fe44e-7ab3-4e4f-8512-2a2bd4c61976",
+                "sampleName": "Top 10000",
+                "sampleRunner": {
+                  "id": null,
+                  "type": 0
+                },
+                "remoteGeneratorProperties": {},
+                "sampleStrategy": 0,
+                "topArguments": {
+                  "sampleCount": 10000
+                },
+                "randomNArguments": {
+                  "sampleCount": 10000
+                },
+                "randomPercentArguments": {
+                  "probability": 0.1
+                },
+                "allowAutoGen": true,
+                "isDisabled": false
+              }
+            ],
+            "activeSample": "ebd0735b-8051-4f8a-acfc-b721f652360d"
+          }
+        },
+        {
+          "id": "f0fcf909-21f6-4864-9953-5eeb9557008a",
+          "type": "Microsoft.DPrep.HandlePathColumnBlock",
+          "arguments": {
+            "pathColumnOperation": 0
+          }
+        }
+      ],
+      "inspectors": [
+        {
+          "id": "faa01bf7-071c-40f2-8fd4-2d8e95617711",
+          "type": "Microsoft.DPrep.DataQualityInspector",
+          "arguments": {},
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "58f1b99f-b044-4ef0-8ffc-f014ff448eb2",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": false
+        }
+      ]
+    }
+  ],
+  "runConfigurations": []
+}

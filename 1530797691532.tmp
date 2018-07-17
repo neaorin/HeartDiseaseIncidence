@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 40,
+  "id": "85676900-a944-494f-b512-c1627909aec6",
+  "activities": [
+    {
+      "id": "59f90761-1d10-4f2a-82ba-7738c9eabf1c",
+      "name": "train_labels",
+      "blocks": [
+        {
+          "id": "1b34660d-8775-45c2-8f4d-20bc035de586",
+          "type": "Microsoft.DPrep.DataSourceBlock",
+          "arguments": {
+            "path": {
+              "target": 0,
+              "resourceDetails": [
+                {
+                  "path": "C:\\Users\\sorinpe\\Source\\MLcompetitions\\HeartDisease\\train_labels.csv"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "af2192bc-b5d2-4136-a04c-6b68601e9d34",
+          "type": "Microsoft.DPrep.ParseDelimitedBlock",
+          "arguments": {
+            "preview": false,
+            "columnHeadersMode": 0,
+            "separator": ",",
+            "fileEncoding": 0,
+            "skipRowsMode": 1,
+            "skipRows": 1,
+            "handleQuotedLineBreaks": false
+          }
+        },
+        {
+          "id": "db022c36-6030-4168-8acc-91d2710d9c37",
+          "type": "Microsoft.DPrep.SetColumnTypesBlock",
+          "arguments": {
+            "columnConversion": [
+              {
+                "columnId": "Column1",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "Column2",
+                "typeProperty": 3,
+                "typeArguments": {}
+              }
+            ]
+          }
+        },
+        {
+          "id": "6ccdc64f-1149-4768-9e0e-63ba4a434452",
+          "type": "Microsoft.DPrep.SampleBlock",
+          "arguments": {
+            "samples": [
+              {
+                "sampleId": "f4d28331-e725-48d5-9e47-b99bd705b090",
+                "sampleRevision": "0e28c693-f990-49fc-b65a-98d697fb2cc2",
+                "sampleName": "Top 10000",
+                "sampleRunner": {
+                  "id": null,
+                  "type": 0
+                },
+                "remoteGeneratorProperties": {},
+                "sampleStrategy": 0,
+                "topArguments": {
+                  "sampleCount": 10000
+                },
+                "randomNArguments": {
+                  "sampleCount": 10000
+                },
+                "randomPercentArguments": {
+                  "probability": 0.1
+                },
+                "allowAutoGen": true,
+                "isDisabled": false
+              }
+            ],
+            "activeSample": "f4d28331-e725-48d5-9e47-b99bd705b090"
+          }
+        },
+        {
+          "id": "da6e1d31-33c2-4d88-9e1b-a8251089f5fa",
+          "type": "Microsoft.DPrep.HandlePathColumnBlock",
+          "arguments": {
+            "pathColumnOperation": 0
+          }
+        }
+      ],
+      "inspectors": [
+        {
+          "id": "d5897918-6c5d-46c7-a987-13d7d5239d0c",
+          "type": "Microsoft.DPrep.DataQualityInspector",
+          "arguments": {},
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "59f90761-1d10-4f2a-82ba-7738c9eabf1c",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": false
+        }
+      ]
+    }
+  ],
+  "runConfigurations": []
+}
