@@ -247,6 +247,24 @@
             "anonymousSteps": null
           },
           "isBackground": false
+        },
+        {
+          "id": "92f21dae-0d4b-44d2-8872-6a71437de12a",
+          "type": "Microsoft.DPrep.DataProfileInspector",
+          "arguments": {},
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "cecbc870-d12a-4f2f-9027-c1b5ea639713",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 0,
+              "referencedStepId": "2f700b57-5354-40b5-bd86-82b5ca04a0d0",
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": true
         }
       ]
     }
