@@ -213,7 +213,7 @@
           }
         },
         {
-          "id": "3d98b6ab-f602-4b7f-ac37-ae03de1276ef",
+          "id": "27f17886-737e-4ffc-a604-4073d6b97663",
           "type": "Microsoft.DPrep.ConvertColumnFieldTypeToBoolBlock",
           "arguments": {
             "columnIds": [
@@ -250,7 +250,11 @@
               "econ__economic_typology",
               "yr",
               "health__homicides_per_100k",
-              "health__motor_vehicle_crash_deaths_per_100k"
+              "health__motor_vehicle_crash_deaths_per_100k",
+              "is_yr_a",
+              "area_is_metro",
+              "is_recreation_dependent",
+              "is_mining_or_manufacturing_dependent"
             ]
           }
         }
@@ -273,6 +277,51 @@
             "anonymousSteps": null
           },
           "isBackground": false
+        },
+        {
+          "id": "0535af94-252d-4d7a-b2e3-0b6edcc2b035",
+          "type": "Microsoft.DPrep.HistogramInspector",
+          "arguments": {
+            "columnId": "health__pct_physical_inacticity",
+            "numberOfBreaks": 6,
+            "defaultBucketing": true,
+            "haloEffect": true,
+            "densityPlot": true,
+            "logScale": false
+          },
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "55155b71-52da-4b38-8661-68a51cf4af8e",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": true
+        },
+        {
+          "id": "1ff54d91-5c07-4b6f-800b-2390c25633ee",
+          "type": "Microsoft.DPrep.ColumnStatsInspector",
+          "arguments": {
+            "columnId": "health__pct_physical_inacticity"
+          },
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "55155b71-52da-4b38-8661-68a51cf4af8e",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": true
         }
       ]
     },
@@ -343,6 +392,68 @@
             "anonymousSteps": null
           },
           "isBackground": false
+        },
+        {
+          "id": "fb5250dd-1dd0-461a-a2d8-5d006de68146",
+          "type": "Microsoft.DPrep.ColumnStatsInspector",
+          "arguments": {
+            "columnId": "econ__pct_civilian_labor"
+          },
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "2a3c5ed9-35b0-46ea-ae5b-1858c47c3e1d",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": true
+        },
+        {
+          "id": "a681f18b-3e67-4a0c-891b-06d17a106e5a",
+          "type": "Microsoft.DPrep.BoxAndWhiskerInspector",
+          "arguments": {
+            "columnId": "econ__pct_civilian_labor"
+          },
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "2a3c5ed9-35b0-46ea-ae5b-1858c47c3e1d",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": true
+        },
+        {
+          "id": "dd54ca1f-a111-41e6-a958-39b9cd087548",
+          "type": "Microsoft.DPrep.ScatterPlotInspector",
+          "arguments": {
+            "xAxisColumn": "econ__pct_civilian_labor",
+            "yAxisColumn": "heart_disease_mortality_per_100k",
+            "sampleSize": 500
+          },
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "2a3c5ed9-35b0-46ea-ae5b-1858c47c3e1d",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": true
         }
       ]
     },
@@ -517,7 +628,7 @@
           }
         },
         {
-          "id": "674f7fbd-85f0-47e6-8d0d-e98051840166",
+          "id": "a5ae15e2-19db-4eca-95bd-2cb6595a81aa",
           "type": "Microsoft.DPrep.ConvertColumnFieldTypeToBoolBlock",
           "arguments": {
             "columnIds": [
@@ -554,7 +665,11 @@
               "econ__economic_typology",
               "yr",
               "health__homicides_per_100k",
-              "health__motor_vehicle_crash_deaths_per_100k"
+              "health__motor_vehicle_crash_deaths_per_100k",
+              "is_yr_a",
+              "area_is_metro",
+              "is_recreation_dependent",
+              "is_mining_or_manufacturing_dependent"
             ]
           }
         }
@@ -577,29 +692,6 @@
             "anonymousSteps": null
           },
           "isBackground": false
-        },
-        {
-          "id": "8586ee3c-06b6-45c5-a00c-9f7ffa56c9b6",
-          "type": "Microsoft.DPrep.PatternInspector",
-          "arguments": {
-            "columnId": "area__urban_influence",
-            "numberOfTopValues": 15,
-            "descending": true,
-            "haloEffect": true
-          },
-          "reference": {
-            "referenceType": 0,
-            "referenceContainerPath": null,
-            "referencedActivityId": "45489115-2e3e-4b48-8a3b-67b1189a6c03",
-            "referencedBranchId": null,
-            "referencedStep": {
-              "stepReferenceType": 1,
-              "referencedStepId": null,
-              "fallback": 1
-            },
-            "anonymousSteps": null
-          },
-          "isBackground": true
         }
       ]
     }
